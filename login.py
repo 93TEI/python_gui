@@ -5,7 +5,7 @@ from PyQt5.QtWidgets import QApplication, QWidget, QPushButton # 설치 : pip3 i
 from PyQt5.QtGui import QIcon
 from PyQt5.QtCore import QCoreApplication # quit 버튼 만들기 위한 import
  
-creds = 'tempfile.temp' # temp파일을 받아옴
+creds = 'DB.temp' # temp파일을 받아옴
  
 def Signup(): # 회원가입
     global pwordE # 사용할 전역 변수 선언
