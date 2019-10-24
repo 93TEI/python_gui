@@ -1,7 +1,7 @@
 import sys
 from PyQt5.QtWidgets import QApplication, QWidget # 설치 : pip3 install PyQt5
 from PyQt5.QtGui import QIcon
-
+from PyQt5.QtCore import QCoreApplication # quit 버튼 만들기 위한 import
 
 class MyApp(QWidget):
 
