@@ -1,5 +1,5 @@
 import sys
-from PyQt5.QtWidgets import QApplication, QWidget # 설치 : pip3 install PyQt5
+from PyQt5.QtWidgets import QApplication, QWidget, QPushButton # 설치 : pip3 install PyQt5
 from PyQt5.QtGui import QIcon
 from PyQt5.QtCore import QCoreApplication # quit 버튼 만들기 위한 import
 
@@ -18,8 +18,15 @@ class MyApp(QWidget):
 
         #self.move(300, 300) # move() 메서드는 위젯을 스크린의 x=300px, y=300px의 위치로 이동
         #self.resize(400, 200) # 메서드는 위젯의 크기를 너비 400px, 높이 200px로 조절
-        self.show() # show() 메서드는 위젯을 스크린에
+      #  self.show() # show() 메서드는 위젯을 스크린에
 
+        btn = QPushButton('Quit', self)
+        btn.move(50, 50)
+        btn.resize(btn.sizeHint())
+        btn.clicked.connect(QCoreApplication.instance().quit)
+
+        self.setGeometry(300, 300, 300, 200)
+        self.show()
 
 if __name__ == '__main__': # '__name__'은 현재 모듈의 이름이 저장되는 내장 변수
 
