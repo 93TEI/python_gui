@@ -1,5 +1,9 @@
 from tkinter import *
 import os
+import sys
+from PyQt5.QtWidgets import QApplication, QWidget, QPushButton # 설치 : pip3 install PyQt5
+from PyQt5.QtGui import QIcon
+from PyQt5.QtCore import QCoreApplication # quit 버튼 만들기 위한 import
  
 creds = 'tempfile.temp' # temp파일을 받아옴
  
@@ -25,8 +29,15 @@ def Signup(): # 회원가입
  
     signupButton = Button(roots, text='회원가입', command=FSSignup) # 회원가입 버튼 만듦, 이거 누르면 FSSignup으로 감
     signupButton.grid(columnspan=2, sticky=W)
+
+    QuitButton = Button(roots, text='나가기', command=close_window) # 회원가입 버튼 만듦, 이거 누르면 FSSignup으로 감
+    QuitButton.grid(columnspan=1, column=2, sticky=W)
+
     roots.mainloop() # 윈도우창이 계속 켜지도록 만듦 
  
+def close_window(): # quit버튼
+    roots.destroy()
+
 def FSSignup():
     with open(creds, 'w') as f: # 맨 위에 만든 변수를 이용해서 문서 만듦
         f.write(nameE.get()) # nameE는 입력을 저장한 변수, .get은 Tkinter를 사용해서 문자열을 얻는다
