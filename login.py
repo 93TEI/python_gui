@@ -1,97 +1,97 @@
 from tkinter import *
 import os
  
-creds = 'tempfile.temp' # This just sets the variable creds to 'tempfile.temp'
+creds = 'tempfile.temp' # temp파일을 받아옴
  
-def Signup(): # This is the signup definition, 
-    global pwordE # These globals just make the variables global to the entire script, meaning any definition can use them
+def Signup(): # 회원가입
+    global pwordE # 사용할 전역 변수 선언
     global nameE
     global roots
  
-    roots = Tk() # This creates the window, just a blank one.
-    roots.title('Signup') # This renames the title of said window to 'signup'
-    intruction = Label(roots, text='Please Enter new Credidentials\n') # This puts a label, so just a piece of text saying 'please enter blah'
-    intruction.grid(row=0, column=0, sticky=E) # This just puts it in the window, on row 0, col 0. If you want to learn more look up a tkinter tutorial :)
+    roots = Tk() # 빈 창
+    roots.title('회원가입') # 빈 창을 회원가입으로
+    intruction = Label(roots, text='어서오세요, 헬창어플입니다. \n') # 인사말 정도
+    intruction.grid(row=0, column=0, sticky=E) # grid 만들어서 사용
  
-    nameL = Label(roots, text='New Username: ') # This just does the same as above, instead with the text new username.
-    pwordL = Label(roots, text='New Password: ') # ^^
-    nameL.grid(row=1, column=0, sticky=W) # Same thing as the instruction var just on different rows. :) Tkinter is like that.
-    pwordL.grid(row=2, column=0, sticky=W) # ^^
+    nameL = Label(roots, text='이름 : ') 
+    pwordL = Label(roots, text='비밀번호 : ') 
+    nameL.grid(row=1, column=0, sticky=W) # 위치 지정
+    pwordL.grid(row=2, column=0, sticky=W) # 그리드로 위치 지정
  
-    nameE = Entry(roots) # This now puts a text box waiting for input.
-    pwordE = Entry(roots, show='*') # Same as above, yet 'show="*"' What this does is replace the text with *, like a password box :D
-    nameE.grid(row=1, column=1) # You know what this does now :D
-    pwordE.grid(row=2, column=1) # ^^
+    nameE = Entry(roots) # 텍스트 상자를 입력 대기 상태로
+    pwordE = Entry(roots, show='*') # 이것도 입력 대기 상태로 만들고, 비번이니까 별표처리해줌
+    nameE.grid(row=1, column=1) 
+    pwordE.grid(row=2, column=1)
  
-    signupButton = Button(roots, text='Signup', command=FSSignup) # This creates the button with the text 'signup', when you click it, the command 'fssignup' will run. which is the def
+    signupButton = Button(roots, text='회원가입', command=FSSignup) # 회원가입 버튼 만듦, 이거 누르면 FSSignup으로 감
     signupButton.grid(columnspan=2, sticky=W)
-    roots.mainloop() # This just makes the window keep open, we will destroy it soon
+    roots.mainloop() # 윈도우창이 계속 켜지도록 만듦 
  
 def FSSignup():
-    with open(creds, 'w') as f: # Creates a document using the variable we made at the top.
-        f.write(nameE.get()) # nameE is the variable we were storing the input to. Tkinter makes us use .get() to get the actual string.
-        f.write('\n') # Splits the line so both variables are on different lines.
-        f.write(pwordE.get()) # Same as nameE just with pword var
+    with open(creds, 'w') as f: # 맨 위에 만든 변수를 이용해서 문서 만듦
+        f.write(nameE.get()) # nameE는 입력을 저장한 변수, .get은 Tkinter를 사용해서 문자열을 얻는다
+        f.write('\n')
+        f.write(pwordE.get())
         f.close() # Closes the file
  
-    roots.destroy() # This will destroy the signup window. :)
-    Login() # This will move us onto the login definition :D
+    roots.destroy() # 회원가입창 끝낼것
+    Login() # 이걸 로그인 def에 옮김
  
 def Login():
     global nameEL
-    global pwordEL # More globals :D
+    global pwordEL # 하나 더 선언
     global rootA
  
-    rootA = Tk() # This now makes a new window.
-    rootA.title('Login') # This makes the window title 'login'
+    rootA = Tk() # 새 창
+    rootA.title('로그인') # 타이틀
  
-    intruction = Label(rootA, text='Please Login\n') # More labels to tell us what they do
+    intruction = Label(rootA, text='로그인을 해주세요.\n') # 디테일 설명
     intruction.grid(sticky=E) # Blahdy Blah
  
-    nameL = Label(rootA, text='Username: ') # More labels
-    pwordL = Label(rootA, text='Password: ') # ^
+    nameL = Label(rootA, text='이름 : ') 
+    pwordL = Label(rootA, text='비밀번호 : ') 
     nameL.grid(row=1, sticky=W)
     pwordL.grid(row=2, sticky=W)
  
-    nameEL = Entry(rootA) # The entry input
+    nameEL = Entry(rootA) # 빈
     pwordEL = Entry(rootA, show='*')
     nameEL.grid(row=1, column=1)
     pwordEL.grid(row=2, column=1)
  
-    loginB = Button(rootA, text='Login', command=CheckLogin) # This makes the login button, which will go to the CheckLogin def.
+    loginB = Button(rootA, text='Login', command=CheckLogin) # 로그인버튼만들고 CheckLogin으로 이동
     loginB.grid(columnspan=2, sticky=W)
  
-    rmuser = Button(rootA, text='Delete User', fg='red', command=DelUser) # This makes the deluser button. blah go to the deluser def.
+    rmuser = Button(rootA, text='회원 삭제', fg='red', command=DelUser) # 빨간색으로 회원삭제 만들고 DelUser로 이동
     rmuser.grid(columnspan=2, sticky=W)
     rootA.mainloop()
  
 def CheckLogin():
     with open(creds) as f:
-        data = f.readlines() # This takes the entire document we put the info into and puts it into the data variable
-        uname = data[0].rstrip() # Data[0], 0 is the first line, 1 is the second and so on.
-        pword = data[1].rstrip() # Using .rstrip() will remove the \n (new line) word from before when we input it
+        data = f.readlines() # 정보를 넣은 전체 문서를 가져 와서 데이터 변수에 넣음
+        uname = data[0].rstrip() # Data[0], 0은 첫줄
+        pword = data[1].rstrip() # rstrip을 쓰는 이유는 뒤에 개행없앨라고
  
-    if nameEL.get() == uname and pwordEL.get() == pword: # Checks to see if you entered the correct data.
-        r = Tk() # Opens new window
+    if nameEL.get() == uname and pwordEL.get() == pword: # 올바른 정보인지 확인하는 작업
+        r = Tk() # 창열기
         r.title(':D')
-        r.geometry('150x50') # Makes the window a certain size
-        rlbl = Label(r, text='\n[+] Logged In') # "logged in" label
-        rlbl.pack() # Pack is like .grid(), just different
+        r.geometry('150x50') # 특정크기로 만듦(창을)
+        rlbl = Label(r, text='\n[+] 로그인 되었습니다.') # 라벨
+        rlbl.pack() # .pack은 그리드와 비슷한 것
         r.mainloop()
     else:
         r = Tk()
         r.title('D:')
         r.geometry('150x50')
-        rlbl = Label(r, text='\n[!] Invalid Login')
+        rlbl = Label(r, text='\n[!] 잘못된 회원 정보입니다.')
         rlbl.pack()
         r.mainloop()
  
 def DelUser():
-    os.remove(creds) # Removes the file
-    rootA.destroy() # Destroys the login window
-    Signup() # And goes back to the start!
+    os.remove(creds) # 파일삭제
+    rootA.destroy() # 로그인창 끔
+    Signup() # 다시 돌아가게함
  
 if os.path.isfile(creds):
     Login()
-else: # This if else statement checks to see if the file exists. If it does it will go to Login, if not it will go to Signup :)
+else: # if else 문은 파일이 존재하는지 확인. 로그인으로 갈지, 가입갈지 정함
     Signup()
