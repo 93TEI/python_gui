@@ -1,5 +1,6 @@
 from tkinter import *
 import os
+import cv2
 import sys
 from PyQt5.QtWidgets import QApplication, QWidget, QPushButton # 설치 : pip3 install PyQt5
 from PyQt5.QtGui import QIcon

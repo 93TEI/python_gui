@@ -9,32 +9,32 @@ class App:
         self.window.title(window_title)
         self.video_source = video_source
 
-        # open video source (by default this will try to open the computer webcam)
+        # 비디오 열기 // 디폴트 값은 노트북 웹캠
         self.vid = MyVideoCapture(self.video_source)
 
-        # Create a canvas that can fit the above video source size
+        # 캔버스를 만들고, 그걸 비디오 소스 사이즈에 맞춤
         self.canvas = tkinter.Canvas(window, width = self.vid.width, height = self.vid.height)
         self.canvas.pack()
 
-        # Button that lets the user take a snapshot
-        self.btn_snapshot=tkinter.Button(window, text="Snapshot", width=50, command=self.snapshot)
+        # 스냅샷 기능
+        self.btn_snapshot=tkinter.Button(window, text="캡쳐하기", width=50, command=self.snapshot)
         self.btn_snapshot.pack(anchor=tkinter.CENTER, expand=True)
 
-        # After it is called once, the update method will be automatically called every delay milliseconds
+        # 한 번 호출 된 후 update 메소드는 지연 시간 (밀리 초)마다 자동으로 호출
         self.delay = 15
         self.update()
 
         self.window.mainloop()
 
     def snapshot(self):
-        # Get a frame from the video source
+        # 비디오 소스로 부터 프레임 받아옴
         ret, frame = self.vid.get_frame()
 
         if ret:
             cv2.imwrite("frame-" + time.strftime("%d-%m-%Y-%H-%M-%S") + ".jpg", cv2.cvtColor(frame, cv2.COLOR_RGB2BGR))
 
     def update(self):
-        # Get a frame from the video source
+        # 비디오 소스로부터 프레임 받아옴
         ret, frame = self.vid.get_frame()
 
         if ret:
@@ -46,12 +46,12 @@ class App:
 
 class MyVideoCapture:
     def __init__(self, video_source=0):
-        # Open the video source
+        # 비디오 열기
         self.vid = cv2.VideoCapture(video_source)
         if not self.vid.isOpened():
             raise ValueError("Unable to open video source", video_source)
 
-        # Get video source width and height
+        # 가로 세로를 비디오로부터 가져옴
         self.width = self.vid.get(cv2.CAP_PROP_FRAME_WIDTH)
         self.height = self.vid.get(cv2.CAP_PROP_FRAME_HEIGHT)
 
@@ -59,17 +59,17 @@ class MyVideoCapture:
         if self.vid.isOpened():
             ret, frame = self.vid.read()
             if ret:
-                # Return a boolean success flag and the current frame converted to BGR
+                # bool 성공 플래그와 현재 프레임을 BGR로 변환하여 반환
                 return (ret, cv2.cvtColor(frame, cv2.COLOR_BGR2RGB))
             else:
                 return (ret, None)
         else:
             return (ret, None)
 
-    # Release the video source when the object is destroyed
+    # 객체 끝나면 비디오소스 해제
     def __del__(self):
         if self.vid.isOpened():
             self.vid.release()
 
-# Create a window and pass it to the Application object
-App(tkinter.Tk(), "Tkinter and OpenCV")
+# 윈도운창 만들고 앱 객체로 전달
+App(tkinter.Tk(), "헬창인생")
