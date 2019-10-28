@@ -1,4 +1,5 @@
 from tkinter import *
+import tkinter
 import os
 import cv2
 import sys
@@ -56,7 +57,7 @@ class MyVideoCapture:
         # 비디오 열기
         self.vid = cv2.VideoCapture(video_source)
         if not self.vid.isOpened():
-            raise ValueError("Unable to open video source", video_source)
+            raise ValueError("비디오를 가져올 수 없습니다.", video_source)
 
         # 가로 세로를 비디오로부터 가져옴
         self.width = self.vid.get(cv2.CAP_PROP_FRAME_WIDTH)
@@ -146,6 +147,9 @@ def Login():
     rmuser = Button(rootA, text='회원 삭제', fg='red', command=DelUser) # 빨간색으로 회원삭제 만들고 DelUser로 이동
     rmuser.grid(columnspan=2, sticky=W)
     rootA.mainloop()
+
+def APP_launcher(): # 이렇게 한단계 더 거쳐야 오류 안나서 만듦
+    App(tkinter.Tk(), "헬창인생")
  
 def CheckLogin():
     with open(creds) as f:
@@ -160,8 +164,11 @@ def CheckLogin():
         intruction = Label(r, text='어서오세요 ,'+uname+'님.\n') # 인사해주고
         intruction.grid(sticky=E)
 
-        loginB = Button(r, text='비디오 test', command=App) # 비디오 test 중
-        loginB.grid(columnspan=2, sticky=W)
+        videoTest = Button(r, text='비디오 test', command=APP_launcher) # 비디오 test 중
+        videoTest.grid(columnspan=2, sticky=W)
+
+        temp = Button(r, text='다음 기능 대기', command=APP)
+        temp.grid(columnspan=2, sticky=W)
     
         r.mainloop()
     else:
