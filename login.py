@@ -167,7 +167,7 @@ def CheckLogin():
         videoTest = Button(r, text='비디오 test', command=APP_launcher) # 비디오 test 중
         videoTest.grid(columnspan=2, sticky=W)
 
-        temp = Button(r, text='다음 기능 대기', command=APP)
+        temp = Button(r, text='분석', command=APP) # 인바디 같은 기능 예정
         temp.grid(columnspan=2, sticky=W)
     
         r.mainloop()
